@@ -1,0 +1,79 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: AMEX online store
+paths:
+  /orders:
+    post:
+      summary: submit a new order
+      description: submit a new order
+      operationId: submitOrder
+      tags:
+        - orders
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /orders/{orderId}:
+    get:
+      summary: List order details
+      description: List all the items in order
+      operationId: listOrderById
+      tags:
+        - orders
+      parameters:
+        - name: orderId
+          in: path
+          description: unique number presents primary key of the order
+          required: true
+          schema:
+            type: integer
+            example: 12345
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - productId
+        - name
+      properties:
+        productId:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+    Order:
+      type: object
+      required:
+      - orderId
+      properties:
+        orderId:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        total:
+          type: number
+
+

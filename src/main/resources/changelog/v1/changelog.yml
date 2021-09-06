@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tables
+      author: yi.qian@yqian.edu
+      labels: create-tables
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            or:
+              - tableExists:
+                  tableName: Order
+      changes:
+        - sqlFile:
+            path: create-tables.sql
+            relativeToChangelogFile: true

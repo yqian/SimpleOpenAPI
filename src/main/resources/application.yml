@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: amex-online-shopping
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    generate-unique-name: false
+  h2:
+    console:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  liquibase:
+    enabled: true
+    change-log: classpath:/changelog/db-changelog-master.yml
+server:
+    servlet:
+      context-path: /amex-online-shopping
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
