@@ -1,4 +1,4 @@
-package edu.yqian.online.orders.exception;
+package org.yqian.online.orders.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

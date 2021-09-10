@@ -1,4 +1,4 @@
-package edu.yqian.online.orders.entity;
+package org.yqian.online.orders.entity;
 
 import lombok.Data;
 
@@ -11,11 +11,13 @@ import java.util.List;
 public class OrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<ProductEntity> productList;
+
+    private String sale;
 
     private double total;
 }

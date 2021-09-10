@@ -1,4 +1,4 @@
-package edu.yqian.online.orders.entity;
+package org.yqian.online.orders.entity;
 
 import lombok.*;
 
@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
     private String name;

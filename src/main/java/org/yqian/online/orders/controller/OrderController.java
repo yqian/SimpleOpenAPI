@@ -1,9 +1,9 @@
-package edu.yqian.online.orders.controller;
+package org.yqian.online.orders.controller;
 
-import edu.yqian.online.orders.codegen.api.OrdersApi;
-import edu.yqian.online.orders.codegen.model.Order;
-import edu.yqian.online.orders.exception.OrderNotFoundException;
-import edu.yqian.online.orders.service.OrderService;
+import org.yqian.online.orders.codegen.api.OrdersApi;
+import org.yqian.online.orders.codegen.model.Order;
+import org.yqian.online.orders.exception.OrderNotFoundException;
+import org.yqian.online.orders.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class OrderController implements OrdersApi {
 
     @Override
     public ResponseEntity<Order> listOrderById(Integer orderId) {
-        Order order = null;
+        Order order;
         try {
             order = orderService.getOrderById(orderId);
         } catch (OrderNotFoundException e) {
@@ -29,7 +29,7 @@ public class OrderController implements OrdersApi {
     }
 
     @Override
-    public ResponseEntity<Order> submitOrder(Order order) {
-       return new ResponseEntity(orderService.normalOrder(order), HttpStatus.CREATED);
+    public ResponseEntity placeOrder(Order order) {
+       return new ResponseEntity(orderService.placeOrder(order), HttpStatus.CREATED);
     }
 }

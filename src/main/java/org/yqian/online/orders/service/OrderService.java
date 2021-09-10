@@ -1,15 +1,17 @@
-package edu.yqian.online.orders.service;
+package org.yqian.online.orders.service;
 
-import edu.yqian.online.orders.codegen.model.Order;
-import edu.yqian.online.orders.entity.OrderEntity;
-import edu.yqian.online.orders.entity.ProductEntity;
-import edu.yqian.online.orders.exception.OrderNotFoundException;
-import edu.yqian.online.orders.repository.OrderRepository;
-import edu.yqian.online.orders.transform.OrderEntityTransformer;
-import edu.yqian.online.orders.transform.ProductEnum;
+import org.yqian.online.orders.codegen.model.Order;
+import org.yqian.online.orders.entity.OrderEntity;
+import org.yqian.online.orders.entity.ProductEntity;
+import org.yqian.online.orders.exception.OrderNotFoundException;
+import org.yqian.online.orders.repository.OrderRepository;
+import org.yqian.online.orders.transform.OrderEntityTransformer;
+import org.yqian.online.orders.transform.ProductEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -21,6 +23,13 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    public Order placeOrder(Order order) {
+        if (order.getSale() == true) {
+            return saleOrder(order);
+        }
+        return normalOrder(order);
+    }
+
     public Order normalOrder(Order order) {
         log.info(order.toString());
         OrderEntity orderEntity = transformer.transformToEntity(order);
@@ -29,7 +38,7 @@ public class OrderService {
         return transformer.transformFromEntity(result);
     }
 
-    public Order offerOrder(Order order) {
+    public Order saleOrder(Order order) {
         log.info("Customer gets discount of Apple BOGO and Orange B2GO");
         OrderEntity orderEntity = transformer.transformToEntity(order);
         double total = 0;
@@ -51,10 +60,10 @@ public class OrderService {
     }
 
     public Order getOrderById(int orderId) throws OrderNotFoundException {
-        OrderEntity order = orderRepository.findById(orderId).orElse(null);
-        if (order == null) {
+        Optional<OrderEntity> order = orderRepository.findById(orderId);
+        if (order.isEmpty()) {
             throw new OrderNotFoundException();
         }
-        return transformer.transformFromEntity(order);
+        return transformer.transformFromEntity(order.get());
     }
 }

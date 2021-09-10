@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-tables
-      author: yi.qian@yqian.edu
+      author: yi.qian@yqian.org
       labels: create-tables
       preConditions:
         - onFail: MARK_RAN
@@ -12,4 +12,12 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: create-tables.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: populate-tables
+      author: yi.qian@yqian.org
+      labels: populate-tables
+      changes:
+        - sqlFile:
+            path: populate-tables.sql
             relativeToChangelogFile: true

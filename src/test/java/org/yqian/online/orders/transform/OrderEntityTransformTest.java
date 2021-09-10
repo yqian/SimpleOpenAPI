@@ -1,9 +1,9 @@
-package edu.yqian.online.orders.transform;
+package org.yqian.online.orders.transform;
 
-import edu.yqian.online.orders.codegen.model.Order;
-import edu.yqian.online.orders.codegen.model.Product;
-import edu.yqian.online.orders.entity.OrderEntity;
-import edu.yqian.online.orders.entity.ProductEntity;
+import org.yqian.online.orders.codegen.model.Order;
+import org.yqian.online.orders.codegen.model.Product;
+import org.yqian.online.orders.entity.OrderEntity;
+import org.yqian.online.orders.entity.ProductEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,6 +29,7 @@ public class OrderEntityTransformTest {
         product.setQuantity(2);
         products.add(product);
         order.setProducts(products);
+        order.setSale(false);
         OrderEntity orderEntity = transformer.transformToEntity(order);
         assertThat(orderEntity.getProductList().get(0).getPrice()).isEqualTo(0.6);
     }
@@ -42,6 +43,7 @@ public class OrderEntityTransformTest {
         product.setQuantity(3);
         products.add(product);
         order.setProducts(products);
+        order.setSale(false);
         OrderEntity orderEntity = transformer.transformToEntity(order);
         assertThat(orderEntity.getProductList().get(0).getPrice()).isEqualTo(0.25);
     }
@@ -53,6 +55,7 @@ public class OrderEntityTransformTest {
         ProductEntity productEntity = ProductEntity.builder().productId(1).name("apple").quantity(2).price(0.6).build();
         productEntities.add(productEntity);
         orderEntity.setProductList(productEntities);
+        orderEntity.setSale("N");
         orderEntity.setTotal(1.2);
         orderEntity.setOrderId(1);
         Order order = transformer.transformFromEntity(orderEntity);

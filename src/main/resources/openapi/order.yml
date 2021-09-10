@@ -6,8 +6,8 @@ paths:
   /orders:
     post:
       summary: submit a new order
-      description: submit a new order
-      operationId: submitOrder
+      description: place a new order
+      operationId: placeOrder
       tags:
         - orders
       requestBody:
@@ -59,7 +59,7 @@ components:
         name:
           type: string
         price:
-          type: number
+          type: double
         quantity:
           type: integer
     Order:
@@ -73,7 +73,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Product'
+        sale:
+          type: boolean
         total:
-          type: number
+          type: double
 
 

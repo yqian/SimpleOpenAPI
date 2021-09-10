@@ -1,12 +1,11 @@
-package edu.yqian.online.orders.transform;
+package org.yqian.online.orders.transform;
 
-import edu.yqian.online.orders.codegen.model.Order;
-import edu.yqian.online.orders.codegen.model.Product;
-import edu.yqian.online.orders.entity.OrderEntity;
-import edu.yqian.online.orders.entity.ProductEntity;
+import org.yqian.online.orders.codegen.model.Order;
+import org.yqian.online.orders.codegen.model.Product;
+import org.yqian.online.orders.entity.OrderEntity;
+import org.yqian.online.orders.entity.ProductEntity;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class OrderEntityTransformer {
             productEntities.add(productOrange);
         }
         orderEntity.setProductList(productEntities);
+        orderEntity.setSale(order.getSale() == true ? "Y" : "N");
         return orderEntity;
     }
 
@@ -38,12 +38,13 @@ public class OrderEntityTransformer {
             product.setProductId(Integer.toString(p.getProductId()));
             product.setName(p.getName());
             product.setQuantity(p.getQuantity());
-            product.setPrice(BigDecimal.valueOf(p.getPrice()));
+            product.setPrice(p.getPrice());
             products.add(product);
         }
         order.setProducts(products);
         order.setOrderId(Integer.toString(orderEntity.getOrderId()));
-        order.setTotal(BigDecimal.valueOf(orderEntity.getTotal()));
+        order.setSale(orderEntity.getSale().equalsIgnoreCase("Y") ? true : false);
+        order.setTotal(orderEntity.getTotal());
         return order;
     }
 }
