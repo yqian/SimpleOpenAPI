@@ -26,7 +26,7 @@ This project is demonstration of Spring Boot with OpenAPI
 
 * Test "POST"
 
-`curl -H "Content-Type: application/json" -X "POST" -d '{"id":1,"name":"Joe Schmo","role":"U R Fired"}' http://localhost:8080/user/1` will update the user record in h2 database.
+`curl -H "Content-Type: application/json" -X "POST" -d '{"sale":false,"orderId":2,"products":[{"productId":"2","name":"orange","price":0.25,"quantity":3}]}";' http://localhost:8080/simple-openapi/orders` will failed because H2 database does not generate the primary key.
 
 3. Verify result
 

@@ -25,11 +25,13 @@ public class OrderEntityTransformTest {
         Order order = new Order();
         List<Product> products = new ArrayList<>();
         Product product = new Product();
+        product.setProductId("1");
         product.setName("apple");
         product.setQuantity(2);
         products.add(product);
         order.setProducts(products);
         order.setSale(false);
+        order.setOrderId("1");
         OrderEntity orderEntity = transformer.transformToEntity(order);
         assertThat(orderEntity.getProductList().get(0).getPrice()).isEqualTo(0.6);
     }
@@ -39,11 +41,13 @@ public class OrderEntityTransformTest {
         Order order = new Order();
         List<Product> products = new ArrayList<>();
         Product product = new Product();
+        product.setProductId("2");
         product.setName("orange");
         product.setQuantity(3);
         products.add(product);
         order.setProducts(products);
         order.setSale(false);
+        order.setOrderId("2");
         OrderEntity orderEntity = transformer.transformToEntity(order);
         assertThat(orderEntity.getProductList().get(0).getPrice()).isEqualTo(0.25);
     }

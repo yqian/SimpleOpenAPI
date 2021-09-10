@@ -64,7 +64,7 @@ public class OrderControllerTest {
 
     @Test
     public void testNormalOrder() throws Exception {
-        String orderJson = "{\"orderId\":\"1\",\"products\":[{\"productId\":\"1\",\"name\":\"apple\",\"price\":0.6,\"quantity\":2}],\"total\":1.2}";
+        String orderJson = "{\"orderId\":\"1\",\"products\":[{\"productId\":\"1\",\"name\":\"apple\",\"price\":0.6,\"quantity\":2}]}";
         given(mockService.placeOrder(order)).willReturn(order);
         mockMvc.perform(post("/orders").content(orderJson).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -72,7 +72,7 @@ public class OrderControllerTest {
 
     @Test
     public void testSaleOrder() throws Exception {
-        String orderJson = "{ \"sale\" : true, \"total\" : \"0\", \"orderId\" : \"1\", \"products\" : [ { \"quantity\" : 2, \"productId\" : \"1\", \"price\" : \"0.6\", \"name\" : \"apple\" }, { \"quantity\" : 3, \"productId\" : \"2\", \"price\" : \"0.25\", \"name\" : \"orange\" } ] }";
+        String orderJson = "{\"sale\":true,\"total\":\"0\",\"orderId\":\"1\",\"products\":[{\"quantity\":2,\"productId\":\"1\",\"price\":\"0.6\",\"name\":\"apple\"},{\"quantity\":3,\"productId\":\"2\",\"price\":\"0.25\",\"name\":\"orange\"}]}";
         given(mockService.placeOrder(new Order())).willReturn(new Order());
         mockMvc.perform(post("/orders").content(orderJson).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
